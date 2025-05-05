@@ -112,6 +112,7 @@ def choix_features(genre):
     liste_choisie = []
     while True:
         if choix == "0":
+            liste_choisie = liste_possible
             break
         elif choix == "1":
             liste_choisie = choix_dans_liste(liste_possible, liste_choisie)

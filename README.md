@@ -19,4 +19,4 @@ Ce projet a été réalisé dans le cadre de la première année à l'ENSAI. Il 
 
 ## 🚀 Utilisation de l'application
 
-python main.py
+Dans le terminal de commande taper la commande : "python main.py"

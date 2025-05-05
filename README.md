@@ -15,7 +15,7 @@ Ce projet a été réalisé dans le cadre de la première année à l'ENSAI. Il 
 - Random 
 - Pandas, Numpy
 - Matplotlib / Plotly (selon ton code)
-- sklearn
+- Sklearn
 
 ## 🚀 Utilisation de l'application
 

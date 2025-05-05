@@ -181,105 +181,111 @@ class Joueur:
                 (data["round"] == "F")
                 ]
 
+            data_result = data[[
+                'annee', 'tourney_id', "tourney_date", "tourney_name",
+                'tourney_level', "surface"
+            ]]
+
         else:
             data = data[
                 (data["winner_id"] == player_id) |
                 (data["loser_id"] == player_id)
                 ]
 
-        # Création d'une variables resultat qui vaut 1(gagné) 0(perdu)
-        ####################################################
-        data['resultat'] = 0
-        data.loc[data['winner_id'] == player_id, 'resultat'] = 1
+            # Création d'une variables resultat qui vaut 1(gagné) 0(perdu)
+            ####################################################
+            data['resultat'] = 0
+            data.loc[data['winner_id'] == player_id, 'resultat'] = 1
 
-        # Suppression des colonnes inutiles
-        ####################################################
-        data = data.drop(columns=['winner_id', 'loser_id'])
+            # Suppression des colonnes inutiles
+            ####################################################
+            data = data.drop(columns=['winner_id', 'loser_id'])
 
-        # Travail sur les tournois
-        ####################################################
-
-        # Parcours des différents tournois
-        liste_tournoi = data["tourney_name"].unique()
-
-        data_result = pd.DataFrame()
-
-        for tournoi in liste_tournoi:
-            data_tournoi = data[data["tourney_name"] == tournoi].copy()
-
-            rounds = data_tournoi["round"].unique()
-
-            # Type de tournois
+            # Travail sur les tournois
             ####################################################
 
-            # Tournoi au Round Robin
-            if 'RR' in rounds:
-                liste_round_complet = ['RR', 'QF', 'SF', 'BR', 'F']
-                liste_mapping = [
-                    [5, 'Tour de Ronde'], [4, 'Quart de final'],
-                    [3, 'Demi finale'], [2, 'Petite finale'], [1, 'Finale']
+            # Parcours des différents tournois
+            liste_tournoi = data["tourney_name"].unique()
+
+            data_result = pd.DataFrame()
+
+            for tournoi in liste_tournoi:
+                data_tournoi = data[data["tourney_name"] == tournoi].copy()
+
+                rounds = data_tournoi["round"].unique()
+
+                # Type de tournois
+                ####################################################
+
+                # Tournoi au Round Robin
+                if 'RR' in rounds:
+                    liste_round_complet = ['RR', 'QF', 'SF', 'BR', 'F']
+                    liste_mapping = [
+                        [5, 'Tour de Ronde'], [4, 'Quart de final'],
+                        [3, 'Demi finale'], [2, 'Petite finale'], [1, 'Finale']
                     ]
 
-            # Eliminatoire
-            else:
-                liste_round_complet = [
-                    'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'R128', 'R64',
-                    'R32', 'R16', 'QF', 'SF', 'BR', 'F'
-                    ]
-                liste_mapping = [
-                    [13, ' 1er tour'], [12, '2ème tour'], [11, '3ème tour'],
-                    [10, '4ème tour'], [9, '5ème tour'],
-                    [8, '128ème de finale'], [7, '64ème de finale'],
-                    [6, '32ème de finale'], [5, '16ème de finale'],
-                    [4, 'Quart de finale'], [3, 'Demi-finale'],
-                    [2, 'Petite finale'], [1, 'Finale']
-                    ]
 
-            # Construire les dictionnaires à partir du mapping
-            ####################################################
-            round_priority = dict(
-                zip(liste_round_complet, [item[0] for item in liste_mapping])
+                # Eliminatoire
+                else:
+                    liste_round_complet = [
+                        'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'R128', 'R64',
+                        'R32', 'R16', 'QF', 'SF', 'BR', 'F'
+                        ]
+                    liste_mapping = [
+                        [13, ' 1er tour'], [12, '2ème tour'], [11, '3ème tour'],
+                        [10, '4ème tour'], [9, '5ème tour'],
+                        [8, '128ème de finale'], [7, '64ème de finale'],
+                        [6, '32ème de finale'], [5, '16ème de finale'],
+                        [4, 'Quart de finale'], [3, 'Demi-finale'],
+                        [2, 'Petite finale'], [1, 'Finale']
+                        ]
+
+                # Construire les dictionnaires à partir du mapping
+                ####################################################
+                round_priority = dict(
+                    zip(liste_round_complet, [item[0] for item in liste_mapping])
+                    )
+                round_label = dict(
+                    zip(liste_round_complet, [item[1] for item in liste_mapping])
+                    )
+
+                # Ajouter les colonnes de priorité et de label
+                ####################################################
+                data_tournoi.loc[:, "round_priority"] = (
+                    data_tournoi["round"].map(round_priority)
                 )
-            round_label = dict(
-                zip(liste_round_complet, [item[1] for item in liste_mapping])
+                data_tournoi.loc[:, "round_label"] = (
+                    data_tournoi["round"].map(round_label)
                 )
 
-            # Ajouter les colonnes de priorité et de label
-            ####################################################
-            data_tournoi.loc[:, "round_priority"] = (
-                data_tournoi["round"].map(round_priority)
-            )
-            data_tournoi.loc[:, "round_label"] = (
-                data_tournoi["round"].map(round_label)
-            )
+                # Garder uniquement le match le plus avancé par joueur
+                ####################################################
+                min = data_tournoi["round_priority"].min()
+                match_best = (
+                    data_tournoi[data_tournoi["round_priority"] == min]
+                )
 
-            # Garder uniquement le match le plus avancé par joueur
-            ####################################################
-            min = data_tournoi["round_priority"].min()
-            match_best = (
-                data_tournoi[data_tournoi["round_priority"] == min]
-            )
+                # Néttoyage
+                ####################################################
+                match_best = match_best.drop(columns=["round_priority", "round"])
 
-            # Néttoyage
-            ####################################################
-            match_best = match_best.drop(columns=["round_priority", "round"])
+                # Ajout au tableau des dataframe
+                ####################################################
+                data_result = pd.concat([data_result, match_best], axis=0)
 
-            # Ajout au tableau des dataframe
-            ####################################################
-            data_result = pd.concat([data_result, match_best], axis=0)
+            # Réordonner les colonnes
+            # Liste des colonnes dans l'ordre souhaité
+            colonnes_souhaitees = [
+                'annee', 'tourney_id', 'tourney_date', 'tourney_name',
+                'tourney_level', 'surface', 'resultat', 'round_label'
+                ]
 
-        # Réordonner les colonnes
-        # Liste des colonnes dans l'ordre souhaité
-        colonnes_souhaitees = [
-            'annee', 'tourney_id', 'tourney_date', 'tourney_name',
-            'tourney_level', 'surface', 'resultat', 'round_label'
-            ]
-
-        # Réorganiser les colonnes
-        colonnes_presentes = [
-            col for col in colonnes_souhaitees if col in data_result.columns
-            ]
-        data_result = data_result[colonnes_presentes]
+            # Réorganiser les colonnes
+            colonnes_presentes = [
+                col for col in colonnes_souhaitees if col in data_result.columns
+                ]
+            data_result = data_result[colonnes_presentes]
 
         return data_result
 

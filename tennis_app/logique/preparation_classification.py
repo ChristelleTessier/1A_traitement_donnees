@@ -109,16 +109,15 @@ def choix_features(genre):
         "\nchoisir des caractéristiques particulières (1)?"
     )
     choix = boucle_01()
+    liste_choisie = []
     while True:
         if choix == "0":
-            liste_choisie = liste_possible
             break
         elif choix == "1":
-            liste_choisie = choix_dans_liste(liste_possible)
+            liste_choisie = choix_dans_liste(liste_possible, liste_choisie)
             if len(liste_choisie) < 2:
                 print("Il faut choisir au moins 2 caractéristiques")
             else:
-                liste_choisie = liste_possible
                 break
         else:
             choix_invalide()

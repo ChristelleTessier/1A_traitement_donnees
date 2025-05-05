@@ -50,7 +50,7 @@ def choix_invalide():
     input("\nAppuie sur Entrée pour continuer")
 
 
-def choix_dans_liste(liste):
+def choix_dans_liste(liste, liste_choix=[]):
     """
     Permet à l'utilisateur de choisir plusieurs éléments dans une liste.
 
@@ -60,11 +60,12 @@ def choix_dans_liste(liste):
 
     Args:
         liste (list): Liste d'éléments à proposer.
+        liste_choix (list optionelle): liste des elements deja_choisis
 
     Returns:
         list: Liste des éléments sélectionnés par l'utilisateur.
     """
-    liste_choix = []
+
     while True:
         effacer_terminal()
         print("\nMenu de choix dans la liste :\n")

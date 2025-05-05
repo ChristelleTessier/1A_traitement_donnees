@@ -13,7 +13,7 @@ from ..menus.menu import (
 from ..affichage.afficher import (
     k_means_visualisation,
     plot_clusters,
-    show_cluster_centroids
+    afficher_cluster_centroids
 )
 from .fonctions_divers import (
     sortie,
@@ -117,12 +117,12 @@ def clustering(X, noms_joueurs, k_optimal, features):
 
     colonnes = []
     mapping = {
-        "pourcentage_victoire": 'Ratio victoires',
-        "pourcentage_victoire_set1_perdu": 'Remontées après set perdu',
-        "pourcentage_balle_break_sauvée": 'Balles de break sauvées',
-        "pourcentage_sem_top_1_10": 'Temps top 10',
-        "pourcentage_sem_top_11_50": 'Temps top 11-50',
-        "pourcentage_sem_top_51_100": 'Temps top 51-100',
+        "pourcentage_victoire": 'Pourcentage victoires',
+        "pourcentage_victoire_set1_perdu": 'Pourcentage victoire set 1 perdu',
+        "pourcentage_balle_break_sauvée": 'Pourcentage balles break sauvées',
+        "pourcentage_sem_top_1_10": 'Pourcentage au top 10',
+        "pourcentage_sem_top_11_50": 'Pourcentage au top 11-50',
+        "pourcentage_sem_top_51_100": 'Pourcentage au top 51-100',
         "main_dominante": ['Main Droite', 'Main Gauche'],
         "genre": ["Sexe Homme", "Sexe Femme"]
     }
@@ -135,6 +135,10 @@ def clustering(X, noms_joueurs, k_optimal, features):
 
     df_centroids = pd.DataFrame(kmeans.cluster_centers_, columns=colonnes)
     df_centroids.index = [f'Cluster {i}' for i in range(k_optimal)]
+
+    # Ajouter le nombre d'éléments par cluster
+    cluster_counts = pd.Series(clusters).value_counts().sort_index()
+    df_centroids['Nombre d\'éléments'] = cluster_counts.values
 
     return df_result, df_centroids, kmeans
 
@@ -201,7 +205,7 @@ def interpretation(df_centroids, df_result, kmeans, genre, k_optimal):
         elif choix == '1':
             plot_clusters(df_result, k_optimal)
         elif choix == "2":
-            show_cluster_centroids(df_centroids)
+            afficher_cluster_centroids(df_centroids)
         elif choix == "3":
             predire_nouveau_joueur(kmeans, genre, df_result)
         elif choix == "4":

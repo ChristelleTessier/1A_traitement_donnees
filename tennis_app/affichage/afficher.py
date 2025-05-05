@@ -288,7 +288,7 @@ def plot_clusters(df_result, k_optimal):
     plt.show()
 
 
-def show_cluster_centroids(df_centroids):
+def afficher_cluster_centroids(df_centroids):
     """
     Affiche les caractéristiques moyennes de chaque cluster (les centroïdes).
 
@@ -301,7 +301,7 @@ def show_cluster_centroids(df_centroids):
     print("Caractéristiques moyennes des clusters:")
     pd.set_option('display.max_rows', None)
     pd.set_option('display.max_columns', None)
-    print(df_centroids)
+    print(df_centroids.round(0))
     pd.reset_option('display.max_rows')
     pd.reset_option('display.max_columns')
     input("Presser entrer pour continuer")

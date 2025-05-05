@@ -208,7 +208,6 @@ def sous_menu_classification():
     nouveau joueur et enregistrer la classification.
     """
     effacer_terminal()
-    
     print("\n ########## Travailler sur la classification ########## \n")
 
     print("1. Afficher le graphique de classification")

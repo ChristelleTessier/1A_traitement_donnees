@@ -225,7 +225,6 @@ class Joueur:
                         [3, 'Demi finale'], [2, 'Petite finale'], [1, 'Finale']
                     ]
 
-
                 # Eliminatoire
                 else:
                     liste_round_complet = [
@@ -233,21 +232,26 @@ class Joueur:
                         'R32', 'R16', 'QF', 'SF', 'BR', 'F'
                         ]
                     liste_mapping = [
-                        [13, ' 1er tour'], [12, '2ème tour'], [11, '3ème tour'],
-                        [10, '4ème tour'], [9, '5ème tour'],
-                        [8, '128ème de finale'], [7, '64ème de finale'],
-                        [6, '32ème de finale'], [5, '16ème de finale'],
-                        [4, 'Quart de finale'], [3, 'Demi-finale'],
-                        [2, 'Petite finale'], [1, 'Finale']
+                        [13, ' 1er tour'], [12, '2ème tour'],
+                        [11, '3ème tour'], [10, '4ème tour'],
+                        [9, '5ème tour'], [8, '128ème de finale'],
+                        [7, '64ème de finale'], [6, '32ème de finale'],
+                        [5, '16ème de finale'], [4, 'Quart de finale'],
+                        [3, 'Demi-finale'], [2, 'Petite finale'],
+                        [1, 'Finale']
                         ]
 
                 # Construire les dictionnaires à partir du mapping
                 ####################################################
                 round_priority = dict(
-                    zip(liste_round_complet, [item[0] for item in liste_mapping])
+                    zip(
+                        liste_round_complet,
+                        [item[0] for item in liste_mapping])
                     )
                 round_label = dict(
-                    zip(liste_round_complet, [item[1] for item in liste_mapping])
+                    zip(
+                        liste_round_complet,
+                        [item[1] for item in liste_mapping])
                     )
 
                 # Ajouter les colonnes de priorité et de label
@@ -268,7 +272,9 @@ class Joueur:
 
                 # Néttoyage
                 ####################################################
-                match_best = match_best.drop(columns=["round_priority", "round"])
+                match_best = match_best.drop(
+                    columns=["round_priority", "round"]
+                    )
 
                 # Ajout au tableau des dataframe
                 ####################################################
@@ -283,7 +289,8 @@ class Joueur:
 
             # Réorganiser les colonnes
             colonnes_presentes = [
-                col for col in colonnes_souhaitees if col in data_result.columns
+                col for col in colonnes_souhaitees
+                if col in data_result.columns
                 ]
             data_result = data_result[colonnes_presentes]
 

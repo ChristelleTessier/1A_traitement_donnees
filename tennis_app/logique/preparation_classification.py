@@ -198,8 +198,8 @@ def preparer_joueurs(liste_id, genre, nb_element):
     ids_utilisés = set()
 
     attributs_numeriques_a_verifier = [
-        "nb_tournois_joue",
         "nb_matchs_joue",
+        "nb_tournois_joue",
         "prop_vic_set_1_perdu",
         "prop_balle_break_sauvee",
         "nb_sem_classe"
@@ -215,7 +215,7 @@ def preparer_joueurs(liste_id, genre, nb_element):
             print(
                 f"Plus de joueurs disponibles. Seulement {len(joueurs)} "
                 "joueurs valides trouvés.")
-            break
+            return joueurs
 
         # Prendre un lot de joueurs à essayer
         taille_lot = min(50, len(ids_restants), nb_element - len(joueurs))

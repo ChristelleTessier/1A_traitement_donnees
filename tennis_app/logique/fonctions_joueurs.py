@@ -67,9 +67,10 @@ def adversaire(joueur):
         if choix == "1":
             joueur2 = creer_joueur_bis()
 
-            if joueur2 is not None:
+            if joueur2 is None:
                 print("Le joueur n'a pas été trouvé")
                 input("Appuyer sur entrer pour continuer")
+            else:
                 comparaison(joueur, joueur2)
 
         elif choix == "10":
@@ -146,8 +147,7 @@ def comparaison(joueur1, joueur2):
                 dossier = os.path.join(dossier_principal, nom_sous_dossier)
 
                 # Creation du nom
-                now = datetime.datetime.now().strftime("%Y%m%d_%H%M")
-                nom = f"Evolution_des_rangs_des_deux_joueurs_{now}"
+                nom = "Rencontres_des_deux_joueurs"
 
                 # Enregistrement
                 sauvegarder_data(data, dossier, nom)
@@ -159,7 +159,7 @@ def comparaison(joueur1, joueur2):
             fig.show()
 
             # Proposer un enregistrement
-            print("\nSouhaitez-vous enregistrer ce palmarès ? (0/1) : ")
+            print("\nSouhaitez-vous enregistrer l'évolution ? (0/1) : ")
             choix = boucle_01()
             if choix == "1":
                 # Créer le dossier principal si nécessaire
@@ -174,7 +174,7 @@ def comparaison(joueur1, joueur2):
                 dossier = os.path.join(dossier_principal, nom_sous_dossier)
 
                 # Creation du nom
-                nom = "Rencontre_des_deux_joueurs"
+                nom = "Evolution_des_deux_joueurs"
 
                 # Enregistrement
                 sauvegarder_figure(fig, dossier, nom)
@@ -192,7 +192,7 @@ def comparaison(joueur1, joueur2):
                 fig.show()
 
                 # Proposer un enregistrement
-                print("\nSouhaitez-vous enregistrer ce palmarès ? (0/1) : ")
+                print("\nSouhaitez-vous enregistrer l'évolution ? (0/1) : ")
                 choix = boucle_01()
                 if choix == "1":
                     # Créer le dossier principal si nécessaire
@@ -200,6 +200,7 @@ def comparaison(joueur1, joueur2):
                     os.makedirs(dossier_principal, exist_ok=True)
 
                     # Créer le dossier spécifique au joueur si nécessaire
+                    now = datetime.datetime.now().strftime("%Y%m%d_%H%M")
                     nom_sous_dossier = (
                         f"{joueur1.nom}_{joueur1.prenom}_VS_"
                         f"{joueur2.nom}_{joueur2.prenom}"
@@ -207,7 +208,7 @@ def comparaison(joueur1, joueur2):
                     dossier = os.path.join(dossier_principal, nom_sous_dossier)
 
                     # Creation du nom
-                    nom = "Rencontre_des_deux_joueurs"
+                    nom = f"Rencontre_des_deux_joueurs_{now}"
 
                     # Enregistrement
                     sauvegarder_figure(fig, dossier, nom)
@@ -374,7 +375,7 @@ def fonction_joueur(joueur_actuel):
 
                     # Creation du nom
                     nom = (
-                        f"Evolution du rang_de_{joueur_actuel.nom}_"
+                        f"Staitsiques_de_{joueur_actuel.nom}_"
                         f"{joueur_actuel.prenom}"
                     )
 

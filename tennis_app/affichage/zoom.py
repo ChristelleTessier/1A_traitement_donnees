@@ -20,7 +20,7 @@ def zoom_annee(data):
     annee_liste = sorted(data['annee'].unique())
 
     print("=== Filtrage des années ===")
-    annees_choisies = choix_dans_liste(annee_liste)
+    annees_choisies = choix_dans_liste(annee_liste, [])
 
     data_filtrée = data[data['annee'].isin(annees_choisies)].copy()
     return data_filtrée
@@ -43,7 +43,7 @@ def zoom_level(data):
 
     level_liste = sorted(data['tourney_level'].dropna().unique())
     print("=== Filtrage par niveau de tournoi ===")
-    niveaux_choisis = choix_dans_liste(level_liste)
+    niveaux_choisis = choix_dans_liste(level_liste, [])
 
     data_filtrée = data[data['tourney_level'].isin(niveaux_choisis)].copy()
     return data_filtrée
@@ -67,7 +67,7 @@ def zoom_surface(data):
 
     surface_liste = sorted(data['surface'].dropna().unique())
     print("=== Filtrage par type de surface ===")
-    surfaces_choisies = choix_dans_liste(surface_liste)
+    surfaces_choisies = choix_dans_liste(surface_liste, [])
 
     data_filtrée = data[data['surface'].isin(surfaces_choisies)].copy()
     return data_filtrée

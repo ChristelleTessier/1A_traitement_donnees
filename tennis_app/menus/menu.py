@@ -211,7 +211,7 @@ def sous_menu_classification():
     print("\n ########## Travailler sur la classification ########## \n")
 
     print("1. Afficher le graphique de classification")
-    print("2. Afficher le tableau de répartition")
+    print("2. Afficher le tableau des centroïdes")
     print("3. Trouver la classe d'un nouveau joueur")
     print("4. Enregistrer la classification")
 

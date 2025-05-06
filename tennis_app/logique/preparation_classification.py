@@ -270,7 +270,6 @@ def preparer_features(joueur, features_choisies):
             if joueur.nb_matchs_joue != 0 else 0
             )
 
-
     if "pourcentage_victoire_tournois" in features_choisies:
         # Pourcentage victoires/tournois
         features.append(

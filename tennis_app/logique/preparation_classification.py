@@ -95,7 +95,8 @@ def choix_features(genre):
     from .fonctions_divers import boucle_01, choix_dans_liste, choix_invalide
 
     liste_possible = [
-        "pourcentage_victoire", "pourcentage_victoire_set1_perdu",
+        "pourcentage_victoire_matchs",
+        "pourcentage_victoire_tournois", "pourcentage_victoire_set1_perdu",
         "pourcentage_balle_break_sauvée", "pourcentage_sem_top_1_10",
         "pourcentage_sem_top_11_50", "pourcentage_sem_top_51_100",
         "main_dominante"
@@ -197,7 +198,8 @@ def preparer_joueurs(liste_id, genre, nb_element):
     ids_utilisés = set()
 
     attributs_numeriques_a_verifier = [
-        "nb_tournois_gagne",
+        "nb_tournois_joue",
+        "nb_matchs_joue",
         "prop_vic_set_1_perdu",
         "prop_balle_break_sauvee",
         "nb_sem_classe"
@@ -261,7 +263,15 @@ def preparer_features(joueur, features_choisies):
     """
     features = []
 
-    if "pourcentage_victoire" in features_choisies:
+    if "pourcentage_victoire_matchs" in features_choisies:
+        # Pourcentage victoires/tournois
+        features.append(
+            joueur.nb_matchs_gagne / joueur.nb_matchs_joue*100
+            if joueur.nb_matchs_joue != 0 else 0
+            )
+
+
+    if "pourcentage_victoire_tournois" in features_choisies:
         # Pourcentage victoires/tournois
         features.append(
             joueur.nb_tournois_gagne / joueur.nb_tournois_joue*100

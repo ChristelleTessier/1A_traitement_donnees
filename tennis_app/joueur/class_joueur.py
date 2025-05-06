@@ -24,6 +24,10 @@ class Joueur:
             Nombre total de tournois joués.
         nb_tournois_gagne (int):
             Nombre de tournois gagnés.
+        nb_matchs_joue (int):
+            Nombre total de tournois joués.
+        nb_matchs_gagne (int):
+            Nombre de tournois gagnés.
         prop_vic_set_1_perdu (float):
             Proportion de victoires après avoir perdu le 1er set.
         prop_balle_break_sauvee (float):
@@ -44,7 +48,8 @@ class Joueur:
     def __init__(
             self, id_joueur: int, prenom: str, nom: str, sexe: str,
             date_nais: datetime, main: str, nb_tournois_joue: int,
-            nb_tournois_gagne: int, prop_vic_set_1_perdu: float,
+            nb_tournois_gagne: int, nb_matchs_joue: int,
+            nb_matchs_gagne: int, prop_vic_set_1_perdu: float,
             prop_balle_break_sauvee: float, nb_sem_classe: int,
             nb_sem_1_10: int, nb_sem_11_50: int, nb_sem_51_100: int,
             date1: datetime, date2: datetime
@@ -58,6 +63,8 @@ class Joueur:
         self.main = main
         self.nb_tournois_joue = nb_tournois_joue
         self.nb_tournois_gagne = nb_tournois_gagne
+        self.nb_matchs_joue = nb_matchs_joue
+        self.nb_matchs_gagne = nb_matchs_gagne
         self.prop_vic_set_1_perdu = prop_vic_set_1_perdu
         self.prop_balle_break_sauvee = prop_balle_break_sauvee
         self.nb_sem_classe = nb_sem_classe

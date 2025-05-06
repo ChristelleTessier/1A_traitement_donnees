@@ -116,6 +116,8 @@ def creer_joueur(*, id=None, prenom=None, nom=None, data=None, info=None):
             main=ligne_joueur['hand'].values[0],
             nb_tournois_joue=ligne_joueur['nb_tournois_joue'].values[0],
             nb_tournois_gagne=ligne_joueur['nb_tournois_gagne'].values[0],
+            nb_matchs_joue=ligne_joueur['nb_matchs_joue'].values[0],
+            nb_matchs_gagne=ligne_joueur['nb_matchs_gagne'].values[0],
             prop_vic_set_1_perdu=(
                 ligne_joueur["prop_vic_set_1_perdu"].values[0]
             ),

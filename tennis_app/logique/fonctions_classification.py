@@ -117,7 +117,8 @@ def clustering(X, noms_joueurs, k_optimal, features):
 
     colonnes = []
     mapping = {
-        "pourcentage_victoire": 'Pourcentage victoires',
+        "pourcentage_victoire_matchs": 'Pourcentage victoires matchs',
+        "pourcentage_victoire_tournois": 'Pourcentage victoires tournois',
         "pourcentage_victoire_set1_perdu": 'Pourcentage victoire set 1 perdu',
         "pourcentage_balle_break_sauvée": 'Pourcentage balles break sauvées',
         "pourcentage_sem_top_1_10": 'Pourcentage au top 10',

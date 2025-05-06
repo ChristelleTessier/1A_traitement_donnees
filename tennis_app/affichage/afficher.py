@@ -26,6 +26,8 @@ def afficher_joueur(joueur):
         print(f"Main : {joueur.main}")
         print(f"Nombre de tournois joués : {joueur.nb_tournois_joue}")
         print(f"Nombre de tournois gagnés : {joueur.nb_tournois_gagne}")
+        print(f"Nombre de matchs joués : {joueur.nb_matchs_joue}")
+        print(f"Nombre de matchs gagnés : {joueur.nb_matchs_gagne}")
         print(
             f"Proportion victoires après set 1 perdu : "
             f"{round(joueur.prop_vic_set_1_perdu,2)} %"
